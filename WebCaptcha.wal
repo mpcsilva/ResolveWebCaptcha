@@ -1,0 +1,12 @@
+­defVar --name resultado --type String
+defVar --name submit1 --type String
+defVar --name campoPreenchido --type Boolean
+defVar --name captchaSolucionado --type Boolean
+webStart --name consultaCnpj --type "Chrome"
+webNavigate --url "https://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/cnpjreva_solicitacao2.asp"
+webSet --value 21520979000107 --selector "Id" --id cnpj --timeout 00:00:04 campoPreenchido=value
+while --left "${captchaSolucionado}" --operator "Equal_To" --right false
+webSolveCaptcha --auto  --timeout 00:00:04 captchaSolucionado=value
+endWhile
+webClick --selector "Id" --id submit1 --timeout 00:00:04
+webClose --name consultaCnpj --leavebrowseropen *19.9.2.0
